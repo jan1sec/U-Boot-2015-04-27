@@ -1,0 +1,414 @@
+[2015-04-27 更新]
+    添加 UBNT AR7240/AR7241 设备专用的 U-Boot 支持
+    移除更新 U-Boot 时对于 U-Boot 大小为 64KB 整数倍的检查 (用作更新 Breed 的过渡)
+
+[2015-04-18 更新]
+    修复 AR934X DDR1 内存上使用不稳定，容易导致不停重启的问题
+    修复 QCA953X 内存频率有小数，且容易导致固件不停重启的问题
+
+[2015-04-11 更新]
+    修复 QCA9558 + AR8236 配置的路由上上传固件速度慢的问题
+
+[2015-04-06 更新]
+    添加 Netgear WNR2000 v4 支持
+
+[2015-03-14 更新]
+    添加 WR1043ND v1 支持
+
+[2015-03-09 更新]
+    添加 WR2543ND 支持
+    修复 WR2041N v2 开机自动进入 U-Boot 刷机界面的 BUG
+
+[2015-02-06 更新]
+    添加 WNR1000 v2 支持 (不能超频)
+
+[2015-01-15 更新]
+    添加 QCA9533 v2 支持 (暂无固件支持)
+    添加 TP-LINK TL-WR2041N v2 (QCA9558 + AR8236) 支持
+    修复在 32M Flash 上打开 TP-LINK 设置页面卡死的 BUG
+    修复使用新版 Flash 驱动后无法在 32M Flash 上启动固件的 BUG
+
+[2014-11-23 更新]
+    AR2317 增加内存大小自适应的功能
+    AR7161 WNDR3700V2/WNDR3800/WNDRMAC 专用版修复 USB 灯常亮的问题
+
+[2014-11-18 更新]
+    刷入编程器固件时如果不选择保留 U-Boot，不再检测固件是否合法，以便刷入其它闪存布局的固件。
+
+[2014-11-16 更新]
+    AR7240 再次修复刷原厂固件丢无线的 BUG (手抖造成的)
+    底层小更新 (所有芯片)
+
+[2014-10-26 更新]
+    AR724x 添加 UBNT 编程器固件自动识别功能
+
+[2014-10-7 更新]
+    AR2317 修复无法刷入部分固件的 BUG
+    修复刷入编程器固件取消选择保留 U-Boot 却仍然保留 U-Boot 的 BUG
+    增加更多 Flash 支持
+
+[2014-9-24 更新]
+    WNDR3800 修复 OpenWrt 可能无法保存设置的 BUG
+    WNDR3800 增加 CH 机型支持
+    增加品胜云座易充 (WMM003N) 及品胜无线音乐路由 (WPR001N) 支持 (先开机，再按复位键，否则无法开机，硬件问题)
+
+[2014-9-21 更新]
+    360 安全路由 C301 专用版完善恢复出厂设置的功能，支持 360 官方固件恢复出厂设置
+    修复小 BUG
+
+[2014-9-20 更新]
+    360 安全路由 C301 专用版增加刷写/备份第二 Flash 功能
+    360 安全路由 C301 专用版增加从第二 Flash 启动的功能 (目前无固件支持)
+    360 安全路由 C301 专用版增加刷写官方加密固件的功能
+
+[2014-9-4 更新]
+    添加 DHCP 服务功能，连接到路由的设备可自动获取 IP 地址
+    增强网页稳定性，解决页面多次刷新后失去响应的问题
+    修复 AR9341/AR9344 内存初始化 BUG，增强稳定性，解决部分 MW300R v3/v4 FW300R v3/v4 无法启动的问题
+
+[2014-8-31 更新]
+    360 安全路由 C301 专用版增加 NVRAM 修改功能，可修改 MAC 地址等设置
+
+[2014-8-30 更新]
+    增加 360 安全路由 C301 专用版
+
+[2014-8-28 更新]
+    修复 AR9344 通电有时无法开机 (灯全亮) 的问题
+    增加 AR9344 + AR8035 (上海贝尔 MSA2K-3513NA 专用版) 支持
+
+U-Boot 选择说明
+
+** 请根据以下列出的硬件配置选择合适的 U-Boot 文件进行刷机
+** 选择 Flash 时，请在下方的列表中检查是否支持。
+** 在已列出的生产商中，绝大多数未列出的 Flash 型号是因为其 JEDEC ID 与已列出的 Flash 相同，因此可以直接使用
+** 凡在 U-Boot 控制台 [系统信息] 页中看到已识别出 Flash 型号，则表明使用此 Flash 没有问题
+
+U-Boot 适用的硬件配置、机型、及原厂固件如下：
+
+[u-boot-ar2317.bin]
+硬件配置：
+    AR2317 + 88E6060
+    AR2317 + AR8236
+    AR2317 + ADM6996
+内存：
+    SDRAM / DDR 16-bit 大小自适应
+机型：
+    山寨 UBNT：
+    TP-LINK TL-WR541G+ v1/v2/v3
+    TP-LINK TL-WR340G+ v1/v2/v3/v4
+    Netgear WGR614v7
+原厂固件：
+    UBNT XS2 系列原厂升级固件
+其他固件：
+    OpenWrt atheros 平台的 sysupgrade 固件
+    DD-WRT 固件
+说明：
+    u-boot-ar2317-32m.bin 可用在 32M 及 64M 内存的路由上，但只能使用 32M 内存
+    u-boot-ar2317-64m.bin 只能用在 64M 内存的路由上，在 32M 内存路由上不能开机
+    此 U-Boot 支持最大 16M Flash；支持在大容量 Flash 上刷写小容量固件，如在 8M Flash 上刷写 4M 固件，则 4M 固件会被自动扩展成 8M
+
+[u-boot-ar7161-wndr3800.bin]
+硬件配置：
+    AR7161 + RTL8366SR
+内存：
+    SDRAM 16-bit 大小自适应
+机型：
+    Netgear WNDR3700 v2
+    Netgear WNDR3800
+    Netgear WNDRMAC
+原厂固件：
+    同机型支持的固件
+其他固件：
+    OpenWrt / DD-WRT 固件
+
+[u-boot-ar7240_ar7241.bin]
+[u-boot-ar7240-wnr1000v2.bin]
+[u-boot-ar724x-ubnt.bin]
+硬件配置：
+    AR7240 / AR7241
+内存：
+    DDR / DDR2 16-bit 大小自适应
+机型：
+    AR7240:
+    TP-LINK TL-WR740N v1/v2/v3
+    TP-LINK TL-WR740N v4 (中国版)
+    TP-LINK TL-WR741N v1/v2/v3
+    TP-LINK TL-WR841N v5
+    TP-LINK TL-WR940N v1
+    TP-LINK TL-WR941N v4
+    TP-LINK TL-WR941N v5
+    网件 WNR1000 v2
+    AR7241:
+    TP-LINK TL-WA801N v1
+    TP-LINK TL-MR3220 v1
+    TP-LINK TL-MR3420 v1
+    TP-LINK TL-WR840N v1
+    TP-LINK TL-WR841N v7
+    TP-LINK TL-WR842N v1
+    以及水星、迅捷马甲路由、UBNT 设备
+原厂固件：
+    同机型支持的固件
+    UBNT XM 原厂升级固件
+    网件 WNR1000 v2 原厂升级固件
+说明：
+    u-boot-ar7240-wnr1000v2.bin 专用于 WNR1000 v2 以解决其3个按键都无法使用的问题；由于复位键的关系，不死超频无效，请不要超频
+    u-boot-ar724x-ubnt.bin 用于 UBNT 设备，解决开机只进入不死 U-Boot 的问题
+
+[u-boot-ar7242-wr2543nd.bin]
+硬件配置：
+    AR7242
+内存：
+    DDR / DDR2 16-bit 大小自适应
+机型：
+    TP-LINK TL-WR2543ND
+原厂固件：
+    同机型支持的固件
+    UBNT XM 原厂升级固件
+
+[u-boot-ar913x-88e6060.bin]
+硬件配置：
+    AR9132 / AR9130 + 88E6060
+内存：
+    DDR 16-bit 大小自适应
+机型：
+    TP-LINK TL-WR941N v1/v2/v3
+    TP-LINK TL-WR841N v3
+原厂固件：
+    同机型支持的固件
+
+[u-boot-ar9132-wr1043ndv1.bin]
+硬件配置：
+    AR9132 + RTL8366RB
+内存：
+    DDR 16-bit 大小自适应
+机型：
+    TP-LINK TL-WR1043ND v1
+原厂固件：
+    同机型支持的固件
+
+[u-boot-ar9331.bin]
+[u-boot-ar9331-pisen.bin]
+硬件配置：
+    AR9331
+内存：
+    SDRAM / DDR / DDR2 16-bit 大小自适应
+机型：
+    TP-LINK TL-MR3020 v1
+    TP-LINK TL-MR3040 v1/v2
+    TP-LINK TL-MR3220 v2
+    TP-LINK TL-WR340G+ v7
+    TP-LINK TL-WR700N
+    TP-LINK TL-WR702N
+    TP-LINK TL-WR703N
+    TP-LINK TL-WR740N v4 (国际版)
+    TP-LINK TL-WR740N v5/v6/v7
+    TP-LINK TL-WR741N v4
+    TP-LINK TL-WR742N v5/v6
+    TP-LINK TL-WR743N v2
+    TP-LINK TL-WR745N v2
+    品胜云座易充 (WMM003N)
+    品胜单网口无线音乐路由 (WPR001N)
+    以及水星、迅捷马甲路由
+原厂固件：
+    TP-LINK TL-MR3020 v1 (国际版)
+    TP-LINK TL-MR3040 v1/v2 (国际版)
+    TP-LINK TL-MR3220 v2 (国际版)
+    TP-LINK TL-WR703N
+    品胜云座易充 (WMM003N)
+    品胜单网口无线音乐路由 (WPR001N)
+说明：
+    u-boot-ar9331-pisen.bin 专用于品胜无线路由以解决其复位按钮无法使用的问题
+    u-boot-ar9331-pisen.bin 品胜路由进入 U-Boot 控制台，请先开机再按复位键，否则无法开机，这是硬件设计造成的。可以超频，但限制到 500MHz
+    不能用于 TP-LINK TL-WR720N v3 和 TP-LINK TL-WR710N，否则无法开机。
+
+[u-boot-ar9331-wr720nv3_wr710n.bin]
+硬件配置：
+    AR9331
+内存：
+    DDR 16-bit 大小自适应
+机型：
+    TP-LINK TL-WR710N
+    TP-LINK TL-WR720 v3
+原厂固件：
+    同 u-boot-ar9331.bin 适用的原厂固件
+说明：
+    针对 TP-LINK TL-WR720 v3 和 TP-LINK TL-WR710N 定制的，以解决其内存类型识别的 BUG。
+
+[u-boot-ar9341.bin]
+[u-boot-ar9341-wnr2000v4.bin]
+硬件配置：
+    AR9341
+内存：
+    SDRAM / DDR / DDR2 16-bit 大小自适应
+机型：
+    TP-LINK TL-MR3420 v2
+    TP-LINK TL-WR841N v8
+    TP-LINK TL-WR842N v2
+    TP-LINK TL-WR843N
+    TP-LINK TL-WR847N v3
+    TP-LINK TL-WR940N v2
+    以及水星、迅捷马甲路由
+原厂固件：
+    TP-LINK TL-MR3420 v2 (国际版)
+    TP-LINK TL-WR841N v8 (国际版)
+    TP-LINK TL-WR842N v2 (国际版)
+    TP-LINK TL-WR843N (国际版)
+    TP-LINK TL-WR940N v2 (国际版)
+说明：
+    u-boot-ar9341-wnr2000v4.bin 专用于 Netgear WNR2000 v4 以解决其复位按钮无法使用的问题
+
+[u-boot-ar9342-ar8327.bin]
+硬件配置：
+    AR9342 + AR8327
+内存：
+    SDRAM / DDR / DDR2 16-bit 大小自适应
+机型：
+    TP-LINK TL-WR1041N v2
+原厂固件：
+    TP-LINK TL-WR1041N v2
+
+[u-boot-ar9344.bin]
+[u-boot-ar9344-wr941nv6.bin]
+[u-boot-ar9344-wdr3320v2.bin]
+[u-boot-ar9344-mw4530r.bin]
+[u-boot-ar9344-msa2k-3513na.bin]
+[u-boot-ar9344-qihoo-c301.bin]
+硬件配置：
+    AR9344
+    AR9344 + AR8327N
+    AR9344 + AR8035
+内存：
+    SDRAM / DDR / DDR2 16-bit 大小自适应
+机型：
+    百兆有线：
+    TP-LINK TL-WR941N v6
+    TP-LINK TL-WR2041N v1
+    TP-LINK TL-WDR3310
+    TP-LINK TL-WDR3320 v2
+    TP-LINK TL-WDR3500
+    TP-LINK TL-WDR3600
+    TP-LINK TL-WDR5300
+    TP-LINK TL-WDR6300 v2
+    水星 MAC1200R
+    360 安全路由 C301
+    千兆有线：
+    D-LINK DIR-825 C1
+    TP-LINK TL-WDR4300/TL-WDR4310/TL-WDR4320
+    水星 MW4530R
+    单口千兆：
+    上海贝尔 MSA2K-3513NA
+原厂固件：
+    同机型支持的固件
+说明：
+    所有 AR9344 的 U-Boot 都自动检测有线网络类型，为百兆千兆自适应的
+    凡未提到使用专用版的，全部使用通用版 u-boot-ar9344.bin ！
+    u-boot-ar9344-wr941nv6.bin 专用于 TP-LINK TL-WR941N v6 以解决其复位按钮无法使用的问题
+    u-boot-ar9344-wdr3320v2.bin 专用于 TP-LINK TL-WDR3320 v2 以解决其 LED 不正常和 PCI-E 初始化的问题
+    u-boot-ar9344-mw4530r.bin 用于 水星 MW4530R 和 D-LINK DIR-825 C1，以便能够使用 WPS/QSS 和 RESET 按钮
+    u-boot-ar9344-msa2k-3513na.bin 专用于 上海贝尔 MSA2K-3513NA，以便 LED 和 RESET 按钮能正常使用；现在只能刷写原厂编程器固件
+    u-boot-ar9344-qihoo-c301.bin 专用于 360 安全路由 C301，支持刷写官方固件或 OpenWrt 固件
+
+[u-boot-qca953x.bin]
+硬件配置：
+    QCA9531 / QCA9533
+内存：
+    SDRAM / DDR / DDR2 16-bit 大小自适应
+机型：
+    TP-LINK TL-WR802N v1
+    TP-LINK TL-WR841N v9/v10/v11
+    TP-LINK TL-WR842N v4
+    水星 MW305R v3
+    水星 MW316R v1
+    迅捷 FR300R v9
+原厂固件：
+    TP-LINK TL-WR802N v1
+    TP-LINK TL-WR841N v9 (国际版)
+
+[u-boot-qca9558-ar8236.bin]
+[u-boot-qca9558-wr2041nv2.bin]
+硬件配置：
+    QCA9558 + AR8236
+内存：
+    SDRAM / DDR / DDR2 16-bit 大小自适应
+机型：
+    TP-LINK TL-WR941N v7
+    TP-LINK TL-WR881N v1
+    TP-LINK TL-WR2041N v2
+    迅捷 FW450R v1
+    水星 MW450R v1
+原厂固件：
+    同机型支持的固件
+说明：
+    凡未提到使用专用版的，全部使用通用版 u-boot-qca9558-ar8236.bin ！
+    u-boot-qca9558-wr2041nv2.bin 专用于 TP-LINK TL-WR2041N v2 以保证复位键和 TURBO 键都可以使用
+
+[u-boot-qca9558-ar8327n.bin]
+硬件配置：
+    QCA9558 + AR8327N
+内存：
+    SDRAM / DDR / DDR2 16-bit 大小自适应
+机型：
+    TP-LINK Archer C5
+    TP-LINK Archer C7 v1/v2
+    TP-LINK TL-WDR4900
+    TP-LINK TL-WDR7500 v2
+    TP-LINK TL-WDR7500 v3
+    TP-LINK TL-WR1043N v2
+原厂固件：
+    同机型支持的固件
+
+[u-boot-tp9343.bin]
+硬件配置：
+    TP9343
+内存：
+    SDRAM / DDR / DDR2 16-bit 大小自适应
+机型：
+    TP-LINK TL-WR880N v3
+    TP-LINK TL-WR882N v1
+    TP-LINK TL-WR885N v1
+    TP-LINK TL-WR941N v8
+    TP-LINK TL-WR2041N v3
+    迅捷 FW450R V2
+原厂固件：
+    无
+
+U-Boot 支持的 Flash 列表及说明：
+
+制造商		4M		8M		16M		32M
+Atmel		AT25DF321
+		AT25DF321A	AT25DF641	EN25Q128	EN25QH256
+EON (cFeon)	EN25F32		EN25P64		EN25QH128
+		EN25P32		EN25Q64
+		EN25Q32		EN25QH64
+		EN25QH32
+
+ESMT		F25L32PA	F25L64QA
+		F25L32QA		
+GigaDevice	GD25Q32		GD25Q64		GD25Q128	
+Macronix	MX25L3205D	MX25L6405D	MX25L12805D
+		MX25L3235E	MX25L6435E	MX25L12835E	MX25L25635E
+		MX25L3255E	MX25L6455E	MX25L12855E	MX25L25655E
+Micron		M25P32		M25P64		N25Q128A13	N25Q256A
+		M25PX32		M25PX64		N25Q128A11
+		N25Q032A	N25Q064A	
+PMC		PM25LQ032
+SST		SST25VF032B	SST25VF064C
+		SST26VF032	SST26VF064B
+		SST26VF032B	
+Spansion	S25FL032A	S25FL064A	S25SL128P1	S25FL256S1
+		S25FL132K	S25FL164K	S25SL128S1
+		S25SL032K *	S25SL064K **	S25SL128K ***
+Winbond		W25X32		W25X64		W25Q128		W25Q256
+		W25Q32		W25Q64
+
+* S25SL032K 被识别为 W25Q32
+** S25SL064K 被识别为 W25Q64
+*** S25SL128K 被识别为 W25Q128
+
+以下型号在所有路由上都不兼容：
+Micron M25P128
+Spansion S25SL128P0
+Spansion S25SL128S0
+Spansion S25FL256S0
+Spansion S25FL512S
+Spansion S70FL01GS
